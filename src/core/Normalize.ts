@@ -10,18 +10,6 @@ MinUi.Css.Add("global", {
     fontFamily: "Arial, Helvetica, sans-serif",
   },
 
-  ".dark *": {
-    color: "#ffffff",
-  },
-
-  ".dark input": {
-    backgroundColor: "#000000",
-  },
-
-  ".dark": {
-    backgroundColor: "#000000",
-  },
-
   //-------------------------------NORMALIZE------------------------------------
 
   /* Document
