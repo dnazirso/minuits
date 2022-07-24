@@ -1,1 +1,3 @@
-interface MinUiTheme extends MinUiColors, MinUiSizes {}
+interface MinUiTheme extends MinUiColors, MinUiSizes {
+  name: string;
+}

@@ -10,13 +10,8 @@ export default class MinUiShaper<T extends { [x: string]: any }> {
    * Constructor
    * @param cssObj css object
    */
-  constructor(
-    cssObj: T,
-    keyword: keyof CssAggregate,
-    idx: number,
-    isDark: boolean = false
-  ) {
-    this.FormatCss(cssObj, keyword, idx, isDark);
+  constructor(cssObj: T, keyword: keyof CssAggregate, idx: number) {
+    this.FormatCss(cssObj, keyword, idx);
   }
 
   /**
@@ -77,12 +72,7 @@ export default class MinUiShaper<T extends { [x: string]: any }> {
    * Format css object to obtain a stringyfiable version of it
    * @param cssObj css object
    */
-  private FormatCss(
-    cssObj: T,
-    keyword: keyof CssAggregate,
-    idx: number,
-    isDark: boolean = false
-  ) {
+  private FormatCss(cssObj: T, keyword: keyof CssAggregate, idx: number) {
     // pass references of cssObj to tempCssObj in order
     // to avoid loosing it while working on cssObj
     this._formattedCss = cssObj;
@@ -94,20 +84,22 @@ export default class MinUiShaper<T extends { [x: string]: any }> {
         const _clsName = `m${idx}_${i}`;
         this._names[name] = _clsName;
         const _class: { [x: string]: any } = {};
-        Object.keys(cssObj[name]).map((prpn) => {
-          if (typeof cssObj[name][prpn] === "object") {
-            if (this.IsPseudoClass(cssObj[name][prpn], "isPseudo")) {
-              delete cssObj[name][prpn]["isPseudo"];
-              this._formattedCss[`${_clsName}:${prpn}`] = this.FormatStyles(
-                cssObj[name][prpn]
-              );
+        Object.keys(cssObj[name]).map((cssProperty) => {
+          if (typeof cssObj[name][cssProperty] === "object") {
+            if (this.IsPseudoClass(cssObj[name][cssProperty], "isPseudo")) {
+              delete cssObj[name][cssProperty]["isPseudo"];
+              this._formattedCss[`${_clsName}:${cssProperty}`] =
+                this.FormatStyles(cssObj[name][cssProperty]);
             } else {
-              const n =
-                prpn.startsWith(".") && isDark ? `.dark ${prpn}` : prpn;
-              _class[n] = this.FormatStyles(cssObj[name][prpn]);
+              _class[cssProperty] = this.FormatStyles(
+                cssObj[name][cssProperty]
+              );
             }
           } else {
-            _class[prpn] = this.FormatStyleProp(cssObj[name], prpn);
+            _class[cssProperty] = this.FormatStyleProp(
+              cssObj[name],
+              cssProperty
+            );
           }
         });
         if (keyword === "media" || keyword === "global") {

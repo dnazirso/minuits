@@ -1,14 +1,12 @@
 import MinUiBuilder from "./MinUiBuilder";
 import MinUiShaper from "./MinUiShaper";
-import LightDefaultTheme from "./DefaultTheme";
-import DarkDefaultTheme from "./DarkDefaultTheme";
+import DefaultTheme from "./DefaultTheme";
 
 export default class MinUi {
   private static _instance: MinUi;
 
   private _idx: number = 0;
-  private _light: MinUiTheme = LightDefaultTheme;
-  private _dark: MinUiTheme = DarkDefaultTheme;
+  private _theme: MinUiTheme = DefaultTheme;
   private _aggregate: CssAggregate = {
     keyframes: { keyword: "@keyframes ", method: this.QueryToString },
     media: { keyword: "@media ", method: this.QueryToString },
@@ -27,23 +25,8 @@ export default class MinUi {
   /**
    * Theme
    */
-  public set Light(light: MinUiTheme) {
-    this._light = this.DeepMerge(LightDefaultTheme, light);
-  }
-
-  /**
-   * Theme
-   */
-  public set Dark(dark: MinUiTheme) {
-    this._light = this.DeepMerge(DarkDefaultTheme, dark);
-  }
-
-  /**
-   * Theme
-   */
-  public set Measures(measures: MinUiSizes) {
-    this._light = this.DeepMerge(DarkDefaultTheme, this._light, measures);
-    this._light = this.DeepMerge(LightDefaultTheme, this._dark, measures);
+  public set Theme(theme: MinUiTheme) {
+    this._theme = this.DeepMerge(DefaultTheme, theme);
   }
 
   /**
@@ -101,15 +84,15 @@ export default class MinUi {
   /**
    * Stringify a keyframe object
    * @param frames keyframes object
-   * @param f keyframe rule object
+   * @param rule keyframe rule object
    */
   private QueryToString(
     frames: CssKeyFramesAtValues,
-    f: { [name: string]: string } = {}
+    rule: { [name: string]: string } = {}
   ) {
     Object.keys(frames).map((frame) => {
       // can't reuse stringifyStyles!?
-      f[frame] = Object.keys(frames[frame]).reduce((prev, curr) => {
+      rule[frame] = Object.keys(frames[frame]).reduce((prev, curr) => {
         return `${(prev += curr
           .split(/(?=[A-Z])/)
           .join("-")
@@ -117,8 +100,8 @@ export default class MinUi {
       }, "");
     });
 
-    return Object.keys(f).reduce((prev, curr) => {
-      return `${(prev += curr)}{${f[curr]}}`;
+    return Object.keys(rule).reduce((prev, curr) => {
+      return `${(prev += curr)}{${rule[curr]}}`;
     }, "");
   }
 
@@ -137,7 +120,8 @@ export default class MinUi {
 
   /**
    * Apply the measures to the style object
-   * @param measureAdder simple callback that returns a Style object
+   * @param keyword "class" | "id" | "global" | "keyframes" | "media"
+   * @param measureAdder simple callback that applies a theme returns a Style object
    */
   public Size<K extends keyof CssAggregate, T>(
     keyword: K,
@@ -151,10 +135,11 @@ export default class MinUi {
   ): { [i in keyof T]?: string | undefined } {
     return this.Use(keyword, measureAdder);
   }
-  
+
   /**
    * Apply the measures to the style object
-   * @param colorAdder simple callback that returns a Style object
+   * @param keyword "class" | "id" | "global" | "keyframes" | "media"
+   * @param colorAdder simple callback that applies a theme returns a Style object
    */
   public Paint<K extends keyof CssAggregate, T>(
     keyword: K,
@@ -171,7 +156,8 @@ export default class MinUi {
 
   /**
    * Merge the charts to the style object
-   * @param themeAdder simple callback that returns a Style object
+   * @param keyword "class" | "id" | "global" | "keyframes" | "media"
+   * @param themeAdder simple callback that applies a theme returns a Style object
    */
   public Use<K extends keyof CssAggregate, T>(
     keyword: K,
@@ -183,14 +169,11 @@ export default class MinUi {
       ? CssQueries
       : T
   ): { [i in keyof T]?: string | undefined } {
-    const lcssObj = themeAdder(this._light);
-    const dcssObj = themeAdder(this._dark);
+    const lcssObj = themeAdder(this._theme);
 
     const lformatter = new MinUiShaper(lcssObj as T, keyword, this._idx);
-    const dformatter = new MinUiShaper(dcssObj as T, keyword, this._idx);
 
     MinUiBuilder.Css.Build(lformatter.Css, this._aggregate[keyword]);
-    MinUiBuilder.Css.Build(dformatter.Css, this._aggregate[keyword], true);
 
     this._idx++;
     return lformatter.Names;
@@ -198,7 +181,7 @@ export default class MinUi {
 
   /**
    * Add css object to the stylesheet
-   * @param keyword "class" "keyframe"
+   * @param keyword "class" | "id" | "global" | "keyframes" | "media"
    * @param cssObj style object
    */
   public Add<K extends keyof CssAggregate, T>(

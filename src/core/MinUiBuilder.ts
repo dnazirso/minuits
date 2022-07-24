@@ -30,9 +30,8 @@ export default class MinUiBuilder {
    * Create an html style element if client side
    */
   private CreateStyleElement() {
-    let style: HTMLStyleElement | null = document.head.querySelector(
-      "#MinUiTScssId"
-    );
+    let style: HTMLStyleElement | null =
+      document.head.querySelector("#MinUiTScssId");
     if (style != null) {
       this._cssString = style.innerText;
       return style;
@@ -47,21 +46,16 @@ export default class MinUiBuilder {
   /**
    * stringify a json into a valid css keyframe and return a string
    * for server side rendering. if client side, push css in a style tag
-   * @param keyFrames contains css class objects
+   * @param cssObj contains css class objects
    */
   public Build<T extends { [x: string]: any }>(
     cssObj: T,
-    keyworkMethod: CssKeywordMethod,
-    isDark: boolean = false
+    keyworkMethod: CssKeywordMethod
   ): void {
     Object.keys(cssObj).forEach((name) => {
-      const s = isDark
-        ? `.dark ${keyworkMethod.keyword}${name}{${keyworkMethod.method(
-            cssObj[name]
-          )}}`
-        : `${keyworkMethod.keyword}${name}{${keyworkMethod.method(
-            cssObj[name]
-          )}}`;
+      const s = `${keyworkMethod.keyword}${name}{${keyworkMethod.method(
+        cssObj[name]
+      )}}`;
       const i = this._cssString.indexOf(s);
       if (i < 0) {
         this._cssString += s;

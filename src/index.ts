@@ -1,10 +1,15 @@
 import "./theme";
-import Box from "./lib/Box";
+import { Box, Button } from "./lib";
 
 function App() {
   const div = document.createElement("div");
 
-  div.append("hello world !!!");
+  const button = document.createElement("button");
+
+  button.append("hello world !!!");
+  button.className = Button.contained;
+
+  div.append(button);
   div.className = Box.flex;
 
   return div;

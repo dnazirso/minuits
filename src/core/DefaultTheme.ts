@@ -1,5 +1,5 @@
 export default {
-  name: "light",
+  name: "MinUItsDefaultTheme",
   breakpoints: {
     xs: 0,
     sm: 600,

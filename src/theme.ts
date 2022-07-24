@@ -1,12 +1,7 @@
 import MinUi from "./core/MinUi";
 
-MinUi.Css.Dark = {
-  chart: {
-    navbar: "#ff00ff",
-  },
-};
-
-MinUi.Css.Light = {
+MinUi.Css.Theme = {
+  name: "light",
   chart: {
     borders: {
       input: "#ff00ff",
