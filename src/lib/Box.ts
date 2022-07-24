@@ -1,7 +1,7 @@
 import MinUi from "../core/MinUi";
 
-const classes = MinUi.Css.Use("class", (theme) => ({
-  Box: {
+const Box = MinUi.Css.Use("class", (theme) => ({
+  flex: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -14,11 +14,10 @@ const classes = MinUi.Css.Use("class", (theme) => ({
 
 MinUi.Css.Add("media", {
   "(max-width: 450px)": {
-    [`.${classes.Box} > .${classes.Box}`]: {
+    [`.${Box.flex} > .${Box.flex}`]: {
       flexGrow: 1,
     },
   },
 });
 
-const { Box } = classes;
 export default Box;

@@ -30,8 +30,8 @@ const keyframes = MinUi.Css.Use("keyframes", (theme) => ({
   },
 }));
 
-const classes = MinUi.Css.Use("class", (theme) => ({
-  Button: {
+const Button = MinUi.Css.Use("class", (theme) => ({
+  contained: {
     color: theme.chart?.button?.textContrasts,
     backgroundColor: theme.chart?.button?.main,
     border: `${theme.borderWidth?.button}px solid ${theme.chart?.borders?.button}`,
@@ -62,7 +62,5 @@ const classes = MinUi.Css.Use("class", (theme) => ({
     },
   },
 }));
-
-const { Button } = classes;
 
 export default Button;

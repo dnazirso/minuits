@@ -1,7 +1,7 @@
 import { MinUi } from "../core";
 
-const classes = MinUi.Css.Use("class", (theme) => ({
-  Checkbox: {
+const Checkbox = MinUi.Css.Use("class", (theme) => ({
+  input: {
     padding: theme.spacing?.inputs,
     marginTop: "auto",
     marginBottom: "auto",
@@ -12,7 +12,5 @@ const classes = MinUi.Css.Use("class", (theme) => ({
     },
   },
 }));
-
-const { Checkbox } = classes;
 
 export default Checkbox;
