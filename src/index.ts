@@ -1,9 +1,7 @@
-function component() {
-  const element = document.createElement("div");
+import Box from "./lib/Box";
 
-  element.innerHTML = "hello world !!!!";
-
-  return element;
+function App() {
+  return Box("hello world !");
 }
 
-document.body.appendChild(component());
+document.body.appendChild(App());
