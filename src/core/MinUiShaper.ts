@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Represent a CSS formatter the rearrange a css object to a
  * stringyfiable version of it

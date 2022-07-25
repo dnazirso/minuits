@@ -2,7 +2,7 @@ type CssKeyWord = "@keyframes " | "@media " | "." | "#" | "";
 
 interface CssKeywordMethod {
   keyword: CssKeyWord;
-  method<T extends { [x: string]: any }>(cssObj: T): string;
+  method<T extends { [x: string]: object }>(cssObj: T): string;
 }
 
 interface CssAggregate {

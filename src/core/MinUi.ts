@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MinUiBuilder from "./MinUiBuilder";
 import MinUiShaper from "./MinUiShaper";
 import DefaultTheme from "./DefaultTheme";
@@ -5,7 +6,7 @@ import DefaultTheme from "./DefaultTheme";
 export default class MinUi {
   private static _instance: MinUi;
 
-  private _idx: number = 0;
+  private _idx = 0;
   private _theme: MinUiTheme = DefaultTheme;
   private _aggregate: CssAggregate = {
     keyframes: { keyword: "@keyframes ", method: this.QueryToString },

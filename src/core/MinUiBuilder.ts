@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Isomorphic class in charge of reading the code and editing the css as needed
  */
