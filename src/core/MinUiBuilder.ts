@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { CssKeywordMethod } from "../typings/CssAggregate";
+
 /**
  * Isomorphic class in charge of reading the code and editing the css as needed
  */

@@ -36,3 +36,5 @@ interface MinUiSizes {
     button?: number | string;
   };
 }
+
+export default MinUiSizes;

@@ -1,4 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import CssAggregate from "../typings/CssAggregate";
+import CssStyles from "../typings/CssStyles";
+
 /**
  * Represent a CSS formatter the rearrange a css object to a
  * stringyfiable version of it

@@ -1,4 +1,6 @@
-interface CssPseudoStyle extends CssStyles {
+import CssStyles from "./CssStyles";
+
+export interface CssPseudoStyle extends CssStyles {
   isPseudo: boolean;
 }
 
@@ -62,3 +64,5 @@ interface CssPeudoClasses {
   visited?: CssPseudoStyle;
   where?: CssPseudoStyle;
 }
+
+export default CssPeudoClasses;

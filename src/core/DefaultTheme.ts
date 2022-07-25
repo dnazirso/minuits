@@ -1,3 +1,5 @@
+import MinUiTheme from "../typings/MinUiTheme";
+
 export default {
   name: "MinUItsDefaultTheme",
   breakpoints: {

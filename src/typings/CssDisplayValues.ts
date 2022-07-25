@@ -1,3 +1,5 @@
+import CssCommonValues from "./CssCommonValues";
+
 type DisplayOutside = "block" | "inline" | "run-in";
 type DisplayInside = "flow" | "flow-root" | "table" | "flex" | "grid" | "ruby";
 type DisplayListitem = "flow" | "flow-root" | "list-item";
@@ -30,3 +32,5 @@ type CssDisplayValues =
   | DisplayBox
   | DisplayLegacy
   | CssCommonValues;
+
+export default CssDisplayValues;

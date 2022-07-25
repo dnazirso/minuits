@@ -2,6 +2,14 @@
 import MinUiBuilder from "./MinUiBuilder";
 import MinUiShaper from "./MinUiShaper";
 import DefaultTheme from "./DefaultTheme";
+import CssAggregate from "../typings/CssAggregate";
+import CssKeyFramesAtValues from "../typings/CssKeyFramesAtValues";
+import CssQueries from "../typings/CssQueries";
+import CssStyles from "../typings/CssStyles";
+import CssStyleSheet from "../typings/CssStyleSheet";
+import MinUiColors from "../typings/MinUiColors";
+import MinUiSizes from "../typings/MinUiSizes";
+import MinUiTheme from "../typings/MinUiTheme";
 
 export default class MinUi {
   private static _instance: MinUi;

@@ -20,3 +20,5 @@ interface MinUiColors {
     text?: string;
   };
 }
+
+export default MinUiColors;

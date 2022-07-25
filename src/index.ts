@@ -7,10 +7,10 @@ function App() {
   const button = document.createElement("button");
 
   button.append("hello world !!!");
-  button.className = Button.contained;
+  button.className = Button.contained!;
 
   div.append(button);
-  div.className = Box.flex;
+  div.className = Box.flex!;
 
   return div;
 }

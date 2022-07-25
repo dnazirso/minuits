@@ -1,12 +1,26 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./",
     "sourceMap": true,
     "noImplicitAny": true,
-    "target": "es5",
-    "jsx": "react",
+    "target": "ESNext",
     "allowJs": true,
     "moduleResolution": "node",
-    "esModuleInterop": true
-  }
+    "module": "CommonJS",
+    "typeRoots": ["./node_modules/@types"],
+    "declaration": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true
+  },
+  "exclude": [
+    "node_modules",
+    "webpack",
+    "src/view",
+    "src/index.ts",
+    "src/theme.ts"
+  ]
 }

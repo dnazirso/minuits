@@ -1,3 +1,7 @@
+import CssCommonValues from "./CssCommonValues";
+import CssDisplayValues from "./CssDisplayValues";
+import CssPositionValues from "./CssPositionValues";
+
 /**
  * @description CSS3 properties
  */
@@ -787,3 +791,5 @@ interface CssStandardStyles {
    */
   zIndex?: number | string;
 }
+
+export default CssStandardStyles;

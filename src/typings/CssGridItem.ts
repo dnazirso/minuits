@@ -1,3 +1,5 @@
+import CssCommonValues from "./CssCommonValues";
+
 type PlaceSelf =
   | "stretch"
   | "flex-start"
@@ -24,3 +26,5 @@ interface CssGridItem {
   justifySelf?: CssCommonValues | PlaceSelf | JustifySelf;
   placeSelf?: CssCommonValues | PlaceSelf;
 }
+
+export default CssGridItem;

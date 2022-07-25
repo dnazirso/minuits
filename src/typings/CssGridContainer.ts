@@ -1,3 +1,5 @@
+import CssCommonValues from "./CssCommonValues";
+
 type ItemsModifier =
   | "stretch"
   | "flex-start"
@@ -45,3 +47,5 @@ interface CssGridContainer {
   gridAutoFlow?: GridAutoFlow;
   grid?: string;
 }
+
+export default CssGridContainer;

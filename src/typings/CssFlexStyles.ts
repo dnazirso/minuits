@@ -1,7 +1,7 @@
-type FlexDirection = "row" | "row-reverse" | "column" | "column-reverse";
+export type FlexDirection = "row" | "row-reverse" | "column" | "column-reverse";
 type FlexWrap = "nowrap" | "wrap" | "wrap-reverse";
 type FlexFlow = "column" | "wrap";
-type JustifyContent =
+export type JustifyContent =
   | "flex-start"
   | "flex-end"
   | "center"
@@ -15,7 +15,7 @@ type JustifyContent =
   | "safe"
   | "unsafe";
 
-type AlignItems =
+export type AlignItems =
   | "stretch"
   | "flex-start"
   | "flex-end"
@@ -84,3 +84,5 @@ interface CssFlexStyles {
    */
   verticalAlign?: VerticalAlign;
 }
+
+export default CssFlexStyles;

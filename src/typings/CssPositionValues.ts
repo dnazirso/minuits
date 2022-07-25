@@ -1,3 +1,5 @@
+import CssCommonValues from "./CssCommonValues";
+
 type CssPositionValues =
   | "relative"
   | "absolute"
@@ -6,3 +8,5 @@ type CssPositionValues =
   | "sticky"
   | "revert"
   | CssCommonValues;
+
+export default CssPositionValues;
