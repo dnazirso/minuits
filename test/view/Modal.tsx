@@ -1,4 +1,4 @@
-import MinUi from "../core/MinUi";
+import MinUi from "../../src/core/MinUi";
 
 const modalFrames = MinUi.Css.Add("keyframes", {
   blur: {

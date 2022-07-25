@@ -1,4 +1,4 @@
-import MinUi from "./core/MinUi";
+import MinUi from "../src/core/MinUi";
 
 MinUi.Css.Theme = {
   chart: {

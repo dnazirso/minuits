@@ -16,11 +16,5 @@
     "noImplicitThis": true,
     "strictNullChecks": true
   },
-  "exclude": [
-    "node_modules",
-    "webpack",
-    "src/view",
-    "src/index.ts",
-    "src/theme.ts"
-  ]
+  "exclude": ["node_modules", "webpack", "test"]
 }

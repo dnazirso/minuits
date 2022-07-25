@@ -1,4 +1,4 @@
-import { MinUi } from "../core";
+import { MinUi } from "../../src/core";
 
 const classes = MinUi.Css.Use("class", (theme) => ({
   span: {
@@ -24,14 +24,14 @@ const classes = MinUi.Css.Use("class", (theme) => ({
 
 export default function Radio(children: string | Node) {
   const span = document.createElement("span");
-  span.className = classes.span;
+  span.className = classes.span!;
 
   const label = document.createElement("label");
-  label.className = classes.label;
+  label.className = classes.label!;
   label.append(children);
   const input = document.createElement("input");
   input.type = "radio";
-  input.className = classes.input;
+  input.className = classes.input!;
   span.append(label, input);
 
   return span;
