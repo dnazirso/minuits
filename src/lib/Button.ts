@@ -39,6 +39,7 @@ const Button = MinUi.Css.Use("class", (theme) => ({
     padding: theme.spacing?.buttons,
     borderImage: "none",
     animation: `${keyframes.unhover} ease-in 0.25s 1`,
+    cursor: "pointer",
     focus: {
       isPseudo: true,
       outline: "none",
