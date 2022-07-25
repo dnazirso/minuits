@@ -15,6 +15,10 @@
     "postversion": "git push && git push --tags",
     "version": "git add -A src"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnazirso/minuits.git"
+  },
   "devDependencies": {
     "@types/node": "^18.0.6",
     "@types/webpack": "^5.28.0",
