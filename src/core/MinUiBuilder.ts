@@ -8,12 +8,14 @@ import { CssKeywordMethod } from "../typings/CssAggregate";
 export default class MinUiBuilder {
   private static _instance: MinUiBuilder;
   private _cssString = "";
-  private _elmt: HTMLStyleElement | undefined;
+  private _minuiCssClasses: HTMLStyleElement;
+  private _minuiCssVars: HTMLStyleElement;
+  private _CssVarsObj: { [index: string]: string };
 
   private constructor() {
-    if (typeof window !== "undefined") {
-      this._elmt = this.CreateStyleElement();
-    }
+    this._minuiCssVars = this.CreateStyleElement("MinUiTScssVarsId");
+    this._minuiCssClasses = this.CreateStyleElement("MinUiTScssId");
+    this._CssVarsObj = {};
   }
 
   /**
@@ -33,16 +35,17 @@ export default class MinUiBuilder {
   /**
    * Create an html style element if client side
    */
-  private CreateStyleElement() {
-    let style: HTMLStyleElement | null =
-      document.head.querySelector("#MinUiTScssId");
+  private CreateStyleElement(name: string) {
+    let style: HTMLStyleElement | null = document.head.querySelector(
+      `#${name}`
+    );
     if (style != null) {
       this._cssString = style.innerText;
       return style;
     }
     style = document.createElement("style");
-    style.id = "MinUiTScssId";
-    style.appendChild(document.createTextNode(""));
+    style.id = name;
+    style.appendChild(document.createTextNode(":root{}"));
     document.head.appendChild(style);
     return style;
   }
@@ -63,8 +66,24 @@ export default class MinUiBuilder {
       const i = this._cssString.indexOf(s);
       if (i < 0) {
         this._cssString += s;
-        this._elmt?.appendChild(document.createTextNode(s));
+        this._minuiCssClasses.innerHTML += ` ${s}`;
       }
     });
+  }
+
+  public addCssVar(name: string, value: string) {
+    this._CssVarsObj = { ...this._CssVarsObj, [name]: value };
+    const cssVarsStr = this.stringifyCssVars();
+    this._minuiCssVars.innerHTML = cssVarsStr;
+  }
+
+  private stringifyCssVars(): string {
+    let cssVarString = "";
+    for (const cssVar in this._CssVarsObj) {
+      if (Object.prototype.hasOwnProperty.call(this._CssVarsObj, cssVar)) {
+        cssVarString += `--${[cssVar]}:${this._CssVarsObj[cssVar]}`;
+      }
+    }
+    return `:root{${cssVarString}}`;
   }
 }
