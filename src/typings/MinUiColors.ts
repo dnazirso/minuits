@@ -14,10 +14,10 @@ interface MinUiColors {
       input?: string;
       button?: string;
     };
-  };
-  shades?: {
-    box?: string;
-    text?: string;
+    shades?: {
+      box?: string;
+      text?: string;
+    };
   };
 }
 

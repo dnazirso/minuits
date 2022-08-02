@@ -81,7 +81,7 @@ export default class MinUiBuilder {
     let cssVarString = "";
     for (const cssVar in this._CssVarsObj) {
       if (Object.prototype.hasOwnProperty.call(this._CssVarsObj, cssVar)) {
-        cssVarString += `--${[cssVar]}:${this._CssVarsObj[cssVar]}`;
+        cssVarString += `--${[cssVar]}:${this._CssVarsObj[cssVar]};`;
       }
     }
     return `:root{${cssVarString}}`;

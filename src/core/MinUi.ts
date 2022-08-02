@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import MinUiBuilder from "./MinUiBuilder";
 import MinUiShaper from "./MinUiShaper";
-import DefaultTheme from "./DefaultTheme";
+import DefaultTheme, { mappedCssVars } from "./DefaultTheme";
 import CssAggregate from "../typings/CssAggregate";
 import CssKeyFramesAtValues from "../typings/CssKeyFramesAtValues";
 import CssQueries from "../typings/CssQueries";
 import CssStyles from "../typings/CssStyles";
 import CssStyleSheet from "../typings/CssStyleSheet";
-import MinUiColors from "../typings/MinUiColors";
 import MinUiSizes from "../typings/MinUiSizes";
 import MinUiTheme from "../typings/MinUiTheme";
 
@@ -36,6 +35,29 @@ export default class MinUi {
    */
   public set Theme(theme: MinUiTheme) {
     this._theme = this.DeepMerge(DefaultTheme, theme);
+    this.mapThemeCharCssVars();
+  }
+
+  private mapThemeCharCssVars() {
+    const mappedChart = {
+      border_button: this._theme.chart?.borders?.button,
+      border_input: this._theme.chart?.borders?.input,
+      border_main: this._theme.chart?.borders?.main,
+      button_main: this._theme.chart?.button?.main,
+      button_disabled: this._theme.chart?.button?.disabled,
+      button_second: this._theme.chart?.button?.second,
+      button_textContrasts: this._theme.chart?.button?.textContrasts,
+      button_warning: this._theme.chart?.button?.warning,
+      main: this._theme.chart?.main,
+      navbar: this._theme.chart?.navbar,
+      shades_box: this._theme.chart?.shades?.box,
+      shades_text: this._theme.chart?.shades?.text,
+    };
+
+    let cssVar: keyof typeof mappedChart;
+    for (cssVar in mappedChart) {
+      MinUiBuilder.Css.addCssVar(cssVar, mappedChart[cssVar]!);
+    }
   }
 
   /**
@@ -146,24 +168,6 @@ export default class MinUi {
   }
 
   /**
-   * Apply the measures to the style object
-   * @param keyword "class" | "id" | "global" | "keyframes" | "media"
-   * @param colorAdder simple callback that applies a theme returns a Style object
-   */
-  public Paint<K extends keyof CssAggregate, T>(
-    keyword: K,
-    colorAdder: (
-      measures: MinUiColors
-    ) => K extends "class" | "id" | "global"
-      ? CssStyleSheet
-      : K extends "keyframes" | "media"
-      ? CssQueries
-      : T
-  ): { [i in keyof T]?: string | undefined } {
-    return this.Use(keyword, colorAdder);
-  }
-
-  /**
    * Merge the charts to the style object
    * @param keyword "class" | "id" | "global" | "keyframes" | "media"
    * @param themeAdder simple callback that applies a theme returns a Style object
@@ -171,14 +175,16 @@ export default class MinUi {
   public Use<K extends keyof CssAggregate, T>(
     keyword: K,
     themeAdder: (
-      colors: MinUiTheme
+      theme: MinUiTheme
     ) => K extends "class" | "id" | "global"
       ? CssStyleSheet
       : K extends "keyframes" | "media"
       ? CssQueries
       : T
   ): { [i in keyof T]?: string | undefined } {
-    const lcssObj = themeAdder(this._theme);
+    const mappedTheme = { ...this._theme, ...mappedCssVars };
+
+    const lcssObj = themeAdder(mappedTheme);
 
     const lformatter = new MinUiShaper(lcssObj as T, keyword, this._idx);
 

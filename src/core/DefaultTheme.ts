@@ -1,5 +1,28 @@
 import MinUiTheme from "../typings/MinUiTheme";
 
+export const mappedCssVars = {
+  chart: {
+    main: "var(--main)",
+    navbar: "var(--navbar)",
+    button: {
+      main: "var(--button_main)",
+      second: "var(--button_second)",
+      warning: "var(--button_warning)",
+      disabled: "var(--button_disabled)",
+      textContrasts: "var(--button_textContrasts)",
+    },
+    borders: {
+      main: "var(--border_main)",
+      input: "var(--border_input)",
+      button: "var(--border_button)",
+    },
+    shades: {
+      box: "var(--shades_box)",
+      text: "var(--shades_text)",
+    },
+  },
+};
+
 export default {
   name: "MinUItsDefaultTheme",
   breakpoints: {
@@ -22,6 +45,10 @@ export default {
       input: "#d3d3d3",
       button: "#aed6f1",
       main: "#e5e7e9",
+    },
+    shades: {
+      box: "#000000",
+      text: "#000000",
     },
   },
   spacing: {
