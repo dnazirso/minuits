@@ -65,10 +65,10 @@ export default function formatCss<T>(
             if (
               pseudoClassKeys.includes(cssProperty as keyof CssPeudoClasses)
             ) {
+              delete formattedCss[propName][cssProperty]["isPseudo"];
               formattedCss[`${_clsName}:${cssProperty}`] = FormatStyles(
                 cssObj[propName][cssProperty]
               );
-              delete formattedCss[propName][cssProperty]["isPseudo"];
             } else {
               _class[cssProperty] = FormatStyles(cssObj[propName][cssProperty]);
             }
@@ -81,7 +81,7 @@ export default function formatCss<T>(
         });
 
         if (keyword === "media" || keyword === "global") {
-          formattedCss[propName.toString()] = _class;
+          formattedCss[propName] = _class;
           return clsNames as { [i in keyof T]: string };
         }
 
