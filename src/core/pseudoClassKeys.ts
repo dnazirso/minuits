@@ -1,5 +1,4 @@
-import { CssPeudoClasses } from "./CssPseudoClasses";
-
+import CssPeudoClasses from "../typings/CssPseudoClasses";
 
 export const pseudoClassKeys: (keyof CssPeudoClasses)[] = [
   "active",

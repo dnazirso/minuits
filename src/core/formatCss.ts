@@ -1,10 +1,10 @@
 import CssAggregate from "../typings/CssAggregate";
 import CssPeudoClasses from "../typings/CssPseudoClasses";
-import { pseudoClassKeys } from "../typings/pseudoClassKeys";
 import CssQueries from "../typings/CssQueries";
 import CssStyles from "../typings/CssStyles";
 import CssStyleSheet from "../typings/CssStyleSheet";
 import { needPxList } from "./needPxList";
+import { pseudoClassKeys } from "./pseudoClasskeys";
 
 type CssObject = { [k: string]: CssStyleSheet | CssQueries };
 
