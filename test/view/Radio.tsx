@@ -1,6 +1,6 @@
 import { MinUi } from "../../src/core";
 
-const classes = MinUi.Css.Use("class", (theme) => ({
+const classes = MinUi.Use("class", (theme) => ({
   span: {
     display: "flex",
     flexDirection: "row",

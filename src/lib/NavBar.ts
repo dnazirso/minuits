@@ -1,6 +1,6 @@
 import MinUi from "../core/MinUi";
 
-const NavBar = MinUi.Css.Use("class", (theme) => ({
+const NavBar = MinUi.Use("class", (theme) => ({
   navbar: {
     top: 0,
     left: 0,

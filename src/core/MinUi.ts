@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { mapThemeCharCssVars, stringifyCssObject } from "./manageHtmlElements";
+import { mapThemeCharCssVars } from "./manageHtmlElements";
+import { stringifyCssObject } from "./stringifyCssObject";
 import DefaultTheme, { mappedCssVars } from "./DefaultTheme";
 import CssAggregate from "../typings/CssAggregate";
 import CssQueries from "../typings/CssQueries";
@@ -18,33 +19,24 @@ const aggregate: CssAggregate = {
   global: { keyword: "", method: stylesToString },
 };
 
-export default class MinUi {
-  private static _instance: MinUi;
+let _theme: MinUiTheme = DefaultTheme;
+let _idx = 0;
 
-  private _idx = 0;
-  private _theme: MinUiTheme = DefaultTheme;
+/**
+ * Theme
+ */
+export function SetTheme(theme: MinUiTheme) {
+  _theme = deepMerge(DefaultTheme, theme);
+  mapThemeCharCssVars(theme);
+}
 
-  /**
-   * @see MinUi instance
-   */
-  public static get Css(): MinUi {
-    return this._instance || (this._instance = new this());
-  }
-
-  /**
-   * Theme
-   */
-  public set Theme(theme: MinUiTheme) {
-    this._theme = deepMerge(DefaultTheme, theme);
-    mapThemeCharCssVars(theme);
-  }
-
+export default {
   /**
    * Merge the charts to the style object
    * @param keyword "class" | "id" | "global" | "keyframes" | "media"
    * @param themeAdder simple callback that applies a theme returns a Style object
    */
-  public Use<K extends keyof CssAggregate, T>(
+  Use<K extends keyof CssAggregate, T>(
     keyword: K,
     themeAdder: (
       theme: MinUiTheme
@@ -53,36 +45,36 @@ export default class MinUi {
       : K extends "keyframes" | "media"
       ? CssQueries
       : T
-  ): { [i in keyof T]?: string | undefined } {
-    const mappedTheme = { ...this._theme, ...mappedCssVars };
+  ): { [i in keyof T]: string } {
+    const mappedTheme = { ..._theme, ...mappedCssVars };
 
     const lcssObj = themeAdder(mappedTheme);
 
-    const lformatter = formatCss(lcssObj, keyword, this._idx);
+    const lformatter = formatCss<T>(lcssObj, keyword, _idx);
 
     stringifyCssObject(lformatter.formattedCss, aggregate[keyword]);
 
-    this._idx++;
+    _idx++;
     return lformatter.names;
-  }
+  },
 
   /**
    * Add css object to the stylesheet
    * @param keyword "class" | "id" | "global" | "keyframes" | "media"
    * @param cssObj style object
    */
-  public Add<K extends keyof CssAggregate, T>(
+  Add<K extends keyof CssAggregate, T>(
     keyword: K,
     cssObj: K extends "class" | "id" | "global"
       ? CssStyleSheet
       : K extends "keyframes" | "media"
       ? CssQueries
       : T
-  ): { [i in keyof T]?: string | undefined } {
-    const formatter = formatCss(cssObj, keyword, this._idx);
+  ): { [i in keyof T]: string } {
+    const formatter = formatCss<T>(cssObj, keyword, _idx);
     stringifyCssObject(formatter.formattedCss, aggregate[keyword]);
 
-    this._idx++;
+    _idx++;
     return formatter.names;
-  }
-}
+  },
+};

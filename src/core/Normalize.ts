@@ -4,7 +4,7 @@ import MinUi from "./MinUi";
  * Based on Normalize.css
  * v8.0.1 | MIT License | github.com/necolas/normalize.css
  */
-MinUi.Css.Add("global", {
+MinUi.Add("global", {
   //--------------------------------MIN-UI--------------------------------------
   "*": {
     fontFamily: "Arial, Helvetica, sans-serif",

@@ -1,6 +1,6 @@
 import MinUi from "../../src/core/MinUi";
 
-const modalFrames = MinUi.Css.Add("keyframes", {
+const modalFrames = MinUi.Add("keyframes", {
   blur: {
     "0%": {
       opacity: 0,
@@ -11,7 +11,7 @@ const modalFrames = MinUi.Css.Add("keyframes", {
   },
 });
 
-const Modal = MinUi.Css.Use("class", (theme) => ({
+const Modal = MinUi.Use("class", (theme) => ({
   overlay: {
     top: 0,
     bottom: 0,

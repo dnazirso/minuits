@@ -1,6 +1,6 @@
-import MinUi from "../src/core/MinUi";
+import { SetTheme } from "../src/core/MinUi";
 
-MinUi.Css.Theme = {
+SetTheme({
   chart: {
     borders: {
       input: "#ff00ff",
@@ -11,4 +11,4 @@ MinUi.Css.Theme = {
       textContrasts: "black",
     },
   },
-};
+});
