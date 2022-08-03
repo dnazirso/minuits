@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import MinUiBuilder from "./MinUiBuilder";
+import { mapThemeCharCssVars, stringifyCssObject } from "./manageHtmlElements";
 import DefaultTheme, { mappedCssVars } from "./DefaultTheme";
 import CssAggregate from "../typings/CssAggregate";
 import CssQueries from "../typings/CssQueries";
@@ -7,7 +7,6 @@ import CssStyleSheet from "../typings/CssStyleSheet";
 import MinUiTheme from "../typings/MinUiTheme";
 import { queryToString } from "./queryToString";
 import { stylesToString } from "./stylesToString";
-import { mapThemeCharCssVars } from "./mapThemeCharCssVars";
 import { deepMerge } from "./deepMerge";
 import formatCss from "./formatCss";
 
@@ -61,7 +60,7 @@ export default class MinUi {
 
     const lformatter = formatCss(lcssObj, keyword, this._idx);
 
-    MinUiBuilder.Css.Build(lformatter.formattedCss, aggregate[keyword]);
+    stringifyCssObject(lformatter.formattedCss, aggregate[keyword]);
 
     this._idx++;
     return lformatter.names;
@@ -81,7 +80,7 @@ export default class MinUi {
       : T
   ): { [i in keyof T]?: string | undefined } {
     const formatter = formatCss(cssObj, keyword, this._idx);
-    MinUiBuilder.Css.Build(formatter.formattedCss, aggregate[keyword]);
+    stringifyCssObject(formatter.formattedCss, aggregate[keyword]);
 
     this._idx++;
     return formatter.names;
