@@ -4,7 +4,7 @@ export interface CssPseudoStyle extends CssStyles {
   isPseudo: boolean;
 }
 
-interface CssPeudoClasses {
+export interface CssPeudoClasses {
   active?: CssPseudoStyle;
   anyLink?: CssPseudoStyle;
   blank?: CssPseudoStyle;

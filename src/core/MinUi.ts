@@ -1,27 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import MinUiBuilder from "./MinUiBuilder";
-import MinUiShaper from "./MinUiShaper";
 import DefaultTheme, { mappedCssVars } from "./DefaultTheme";
 import CssAggregate from "../typings/CssAggregate";
-import CssKeyFramesAtValues from "../typings/CssKeyFramesAtValues";
 import CssQueries from "../typings/CssQueries";
-import CssStyles from "../typings/CssStyles";
 import CssStyleSheet from "../typings/CssStyleSheet";
-import MinUiSizes from "../typings/MinUiSizes";
 import MinUiTheme from "../typings/MinUiTheme";
+import { queryToString } from "./queryToString";
+import { stylesToString } from "./stylesToString";
+import { mapThemeCharCssVars } from "./mapThemeCharCssVars";
+import { deepMerge } from "./deepMerge";
+import formatCss from "./formatCss";
+
+const aggregate: CssAggregate = {
+  keyframes: { keyword: "@keyframes ", method: queryToString },
+  media: { keyword: "@media ", method: queryToString },
+  class: { keyword: ".", method: stylesToString },
+  id: { keyword: "#", method: stylesToString },
+  global: { keyword: "", method: stylesToString },
+};
 
 export default class MinUi {
   private static _instance: MinUi;
 
   private _idx = 0;
   private _theme: MinUiTheme = DefaultTheme;
-  private _aggregate: CssAggregate = {
-    keyframes: { keyword: "@keyframes ", method: this.QueryToString },
-    media: { keyword: "@media ", method: this.QueryToString },
-    class: { keyword: ".", method: this.StylesToString },
-    id: { keyword: "#", method: this.StylesToString },
-    global: { keyword: "", method: this.StylesToString },
-  };
 
   /**
    * @see MinUi instance
@@ -34,137 +36,8 @@ export default class MinUi {
    * Theme
    */
   public set Theme(theme: MinUiTheme) {
-    this._theme = this.DeepMerge(DefaultTheme, theme);
-    this.mapThemeCharCssVars();
-  }
-
-  private mapThemeCharCssVars() {
-    const mappedChart = {
-      border_button: this._theme.chart?.borders?.button,
-      border_input: this._theme.chart?.borders?.input,
-      border_main: this._theme.chart?.borders?.main,
-      button_main: this._theme.chart?.button?.main,
-      button_disabled: this._theme.chart?.button?.disabled,
-      button_second: this._theme.chart?.button?.second,
-      button_textContrasts: this._theme.chart?.button?.textContrasts,
-      button_warning: this._theme.chart?.button?.warning,
-      main: this._theme.chart?.main,
-      navbar: this._theme.chart?.navbar,
-      shades_box: this._theme.chart?.shades?.box,
-      shades_text: this._theme.chart?.shades?.text,
-    };
-
-    let cssVar: keyof typeof mappedChart;
-    for (cssVar in mappedChart) {
-      MinUiBuilder.Css.addCssVar(cssVar, mappedChart[cssVar]!);
-    }
-  }
-
-  /**
-   * Simple object check.
-   * @param item
-   * @returns {boolean}
-   */
-  private isObject = (obj: any) => obj && typeof obj === "object";
-
-  /**
-   * Performs a deep merge of `source` into `target`.
-   * Mutates `target` only but not its objects and arrays.
-   */
-  private DeepMerge(...objects: any[]) {
-    const deepMergeInner = (target: any, source: any) => {
-      Object.keys(source).forEach((key: string) => {
-        const targetValue = target[key];
-        const sourceValue = source[key];
-
-        if (Array.isArray(targetValue) && Array.isArray(sourceValue)) {
-          target[key] = targetValue.concat(sourceValue);
-        } else if (this.isObject(targetValue) && this.isObject(sourceValue)) {
-          target[key] = deepMergeInner(
-            Object.assign({}, targetValue),
-            sourceValue
-          );
-        } else {
-          target[key] = sourceValue;
-        }
-      });
-
-      return target;
-    };
-
-    if (objects.length < 2) {
-      throw new Error(
-        "deepMerge: this function expects at least 2 objects to be provided"
-      );
-    }
-
-    if (objects.some((object) => !this.isObject(object))) {
-      throw new Error('deepMerge: all values should be of type "object"');
-    }
-
-    const target = objects.shift();
-    let source: any;
-
-    while ((source = objects.shift())) {
-      deepMergeInner(target, source);
-    }
-
-    return target;
-  }
-
-  /**
-   * Stringify a keyframe object
-   * @param frames keyframes object
-   * @param rule keyframe rule object
-   */
-  private QueryToString(
-    frames: CssKeyFramesAtValues,
-    rule: { [name: string]: string } = {}
-  ) {
-    Object.keys(frames).map((frame) => {
-      // can't reuse stringifyStyles!?
-      rule[frame] = Object.keys(frames[frame]).reduce((prev, curr) => {
-        return `${(prev += curr
-          .split(/(?=[A-Z])/)
-          .join("-")
-          .toLowerCase())}:${frames[frame][curr]};`;
-      }, "");
-    });
-
-    return Object.keys(rule).reduce((prev, curr) => {
-      return `${(prev += curr)}{${rule[curr]}}`;
-    }, "");
-  }
-
-  /**
-   * Stringify styles
-   * @param cssObj css object
-   */
-  private StylesToString(cssObj: CssStyles) {
-    return Object.keys(cssObj).reduce((prev, curr) => {
-      return `${(prev += curr
-        .split(/(?=[A-Z])/)
-        .join("-")
-        .toLowerCase())}:${cssObj[curr]};`;
-    }, "");
-  }
-
-  /**
-   * Apply the measures to the style object
-   * @param keyword "class" | "id" | "global" | "keyframes" | "media"
-   * @param measureAdder simple callback that applies a theme returns a Style object
-   */
-  public Size<K extends keyof CssAggregate, T>(
-    keyword: K,
-    measureAdder: (
-      measures: MinUiSizes
-    ) => K extends "class" | "id" | "global"
-      ? CssStyleSheet
-      : K extends "keyframes" | "media"
-      ? CssQueries
-      : T
-  ): { [i in keyof T]?: string | undefined } {
-    return this.Use(keyword, measureAdder);
+    this._theme = deepMerge(DefaultTheme, theme);
+    mapThemeCharCssVars(theme);
   }
 
   /**
@@ -186,12 +59,12 @@ export default class MinUi {
 
     const lcssObj = themeAdder(mappedTheme);
 
-    const lformatter = new MinUiShaper(lcssObj as T, keyword, this._idx);
+    const lformatter = formatCss(lcssObj, keyword, this._idx);
 
-    MinUiBuilder.Css.Build(lformatter.Css, this._aggregate[keyword]);
+    MinUiBuilder.Css.Build(lformatter.formattedCss, aggregate[keyword]);
 
     this._idx++;
-    return lformatter.Names;
+    return lformatter.names;
   }
 
   /**
@@ -207,10 +80,10 @@ export default class MinUi {
       ? CssQueries
       : T
   ): { [i in keyof T]?: string | undefined } {
-    const formatter = new MinUiShaper(cssObj as T, keyword, this._idx);
-    MinUiBuilder.Css.Build(formatter.Css, this._aggregate[keyword]);
+    const formatter = formatCss(cssObj, keyword, this._idx);
+    MinUiBuilder.Css.Build(formatter.formattedCss, aggregate[keyword]);
 
     this._idx++;
-    return formatter.Names;
+    return formatter.names;
   }
 }
