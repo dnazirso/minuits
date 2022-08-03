@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "build:dev": "webpack --config webpack/webpack.config.ts",
+    "build:dev": "webpack --config webpack/webpack.config.ts --mode production",
     "dev": "webpack serve --config webpack/webpack.config.ts --port 3000",
     "lint": "eslint src/**",
     "prepare": "npm run build",

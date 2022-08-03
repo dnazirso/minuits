@@ -14,19 +14,6 @@ function getStyleElement(name: string) {
   return style;
 }
 
-function getScriptElement(name: string) {
-  let script: HTMLScriptElement | null = document.head.querySelector(
-    `#${name}`
-  );
-  if (script != null) {
-    return script;
-  }
-  script = document.createElement("script");
-  script.id = name;
-  document.head.appendChild(script);
-  return script;
-}
-
 /**
  * stringify a json into a valid css keyframe and return a string
  * for server side rendering. if client side, push css in a style tag
@@ -47,11 +34,9 @@ export function stringifyCssObject<T extends { [x: string]: any }>(
   });
 }
 
-export function addCssVar(name: string, value: string) {
-  const cssVars = getScriptElement("MinUiTScssJsonId").innerHTML;
-  const cssvartxt = cssVars.replace("const cssvars = ", "").replace(";", "");
-  let cssVarsObj = cssVars.length > 0 ? JSON.parse(cssvartxt) : {};
+let cssVarsObj: { [index: string]: string } = {};
 
+export function addCssVar(name: string, value: string) {
   function stringifyCssVars(): string {
     let cssVarString = "";
     for (const cssVar in cssVarsObj) {
@@ -64,9 +49,7 @@ export function addCssVar(name: string, value: string) {
 
   cssVarsObj = { ...cssVarsObj, [name]: value };
   const cssVarsStr = stringifyCssVars();
-  const text = JSON.stringify(cssVarsObj);
   getStyleElement("MinUiTScssVarsId").innerHTML = cssVarsStr;
-  getScriptElement("MinUiTScssJsonId").innerHTML = `const cssvars = ${text};`;
 }
 
 export function mapThemeCharCssVars(theme: MinUiTheme) {
