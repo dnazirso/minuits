@@ -1,6 +1,6 @@
-import minui from "../core/minuits";
+import { Use } from "../core/minuits";
 
-const Grid = minui.Use("class", (theme) => ({
+const Grid = Use("class", (theme) => ({
   auto: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",

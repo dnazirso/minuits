@@ -1,4 +1,4 @@
-export { default as minuits } from "./minuits";
+export { Add, Use } from "./minuits";
 
 export * from "./minuits";
 // export * from "./Normalize";

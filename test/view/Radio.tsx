@@ -1,6 +1,6 @@
-import minui from "../../src/core/minuits";
+import { Use } from "../../src/core/minuits";
 
-const classes = minui.Use("class", (theme) => ({
+const classes = Use("class", (theme) => ({
   span: {
     display: "flex",
     flexDirection: "row",

@@ -1,6 +1,6 @@
-import minui from "../core/minuits";
+import { Use, Add } from "../core/minuits";
 
-const modalFrames = minui.Add("keyframes", {
+const modalFrames = Add("keyframes", {
   blur: {
     "0%": {
       opacity: 0,
@@ -11,7 +11,7 @@ const modalFrames = minui.Add("keyframes", {
   },
 });
 
-const Modal = minui.Use("class", (theme) => ({
+const Modal = Use("class", (theme) => ({
   overlay: {
     top: 0,
     bottom: 0,

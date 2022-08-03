@@ -1,10 +1,10 @@
-import minui from "./minuits";
+import { Add } from "./minuits";
 
 /**
  * Based on Normalize.css
  * v8.0.1 | MIT License | github.com/necolas/normalize.css
  */
-minui.Add("global", {
+Add("global", {
   //--------------------------------MIN-UI--------------------------------------
   "*": {
     fontFamily: "Arial, Helvetica, sans-serif",
@@ -207,18 +207,20 @@ minui.Add("global", {
    * Remove the inner border and padding in Firefox.
    */
 
-  [`button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner`]: {
-    borderStyle: "none",
-    padding: 0,
-  },
+  [`button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner`]:
+    {
+      borderStyle: "none",
+      padding: 0,
+    },
 
   /**
    * Restore the focus styles unset by the previous rule.
    */
 
-  [`button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring`]: {
-    outline: "1px dotted ButtonText",
-  },
+  [`button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring`]:
+    {
+      outline: "1px dotted ButtonText",
+    },
 
   /**
    * Correct the padding in Firefox.
@@ -266,9 +268,10 @@ minui.Add("global", {
    * Correct the cursor style of increment and decrement buttons in Chrome.
    */
 
-  [`[type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button`]: {
-    height: "auto",
-  },
+  [`[type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button`]:
+    {
+      height: "auto",
+    },
 
   /**
    * 1. Correct the odd appearance in Chrome and Safari.

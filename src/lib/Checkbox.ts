@@ -1,6 +1,6 @@
-import { minuits } from "../core";
+import { Use } from "../core";
 
-const Checkbox = minuits.Use("class", (theme) => ({
+const Checkbox = Use("class", (theme) => ({
   input: {
     padding: theme.spacing?.inputs,
     marginTop: "auto",

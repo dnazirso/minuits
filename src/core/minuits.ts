@@ -30,51 +30,49 @@ export function SetTheme(theme: MinUiTheme) {
   mapThemeCharCssVars(theme);
 }
 
-export default {
-  /**
-   * Merge the charts to the style object
-   * @param keyword "class" | "id" | "global" | "keyframes" | "media"
-   * @param themeAdder simple callback that applies a theme returns a Style object
-   */
-  Use<K extends keyof CssAggregate, T>(
-    keyword: K,
-    themeAdder: (
-      theme: MinUiTheme
-    ) => K extends "class" | "id" | "global"
-      ? CssStyleSheet
-      : K extends "keyframes" | "media"
-      ? CssQueries
-      : T
-  ): { [i in keyof T]: string } {
-    const mappedTheme = { ..._theme, ...mappedCssVars };
+/**
+ * Merge the charts to the style object
+ * @param keyword "class" | "id" | "global" | "keyframes" | "media"
+ * @param themeAdder simple callback that applies a theme returns a Style object
+ */
+export function Use<K extends keyof CssAggregate, T>(
+  keyword: K,
+  themeAdder: (
+    theme: MinUiTheme
+  ) => K extends "class" | "id" | "global"
+    ? CssStyleSheet
+    : K extends "keyframes" | "media"
+    ? CssQueries
+    : T
+): { [i in keyof T]: string } {
+  const mappedTheme = { ..._theme, ...mappedCssVars };
 
-    const lcssObj = themeAdder(mappedTheme);
+  const lcssObj = themeAdder(mappedTheme);
 
-    const lformatter = formatCss<T>(lcssObj, keyword, _idx);
+  const lformatter = formatCss<T>(lcssObj, keyword, _idx);
 
-    stringifyCssObject(lformatter.formattedCss, aggregate[keyword]);
+  stringifyCssObject(lformatter.formattedCss, aggregate[keyword]);
 
-    _idx++;
-    return lformatter.names;
-  },
+  _idx++;
+  return lformatter.names;
+}
 
-  /**
-   * Add css object to the stylesheet
-   * @param keyword "class" | "id" | "global" | "keyframes" | "media"
-   * @param cssObj style object
-   */
-  Add<K extends keyof CssAggregate, T>(
-    keyword: K,
-    cssObj: K extends "class" | "id" | "global"
-      ? CssStyleSheet
-      : K extends "keyframes" | "media"
-      ? CssQueries
-      : T
-  ): { [i in keyof T]: string } {
-    const formatter = formatCss<T>(cssObj, keyword, _idx);
-    stringifyCssObject(formatter.formattedCss, aggregate[keyword]);
+/**
+ * Add css object to the stylesheet
+ * @param keyword "class" | "id" | "global" | "keyframes" | "media"
+ * @param cssObj style object
+ */
+export function Add<K extends keyof CssAggregate, T>(
+  keyword: K,
+  cssObj: K extends "class" | "id" | "global"
+    ? CssStyleSheet
+    : K extends "keyframes" | "media"
+    ? CssQueries
+    : T
+): { [i in keyof T]: string } {
+  const formatter = formatCss<T>(cssObj, keyword, _idx);
+  stringifyCssObject(formatter.formattedCss, aggregate[keyword]);
 
-    _idx++;
-    return formatter.names;
-  },
-};
+  _idx++;
+  return formatter.names;
+}

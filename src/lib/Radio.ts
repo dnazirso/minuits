@@ -1,6 +1,6 @@
-import { minuits } from "../core";
+import { Use } from "../core";
 
-const Radio = minuits.Use("class", (theme) => ({
+const Radio = Use("class", (theme) => ({
   span: {
     display: "flex",
     flexDirection: "row",
