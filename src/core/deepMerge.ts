@@ -1,25 +1,26 @@
-export function deepMerge(...objects: any[]) {
-  const isObject = (obj: any) => obj && typeof obj === "object";
-  const deepMergeInner = (target: any, source: any) => {
-    Object.keys(source).forEach((key: string) => {
-      const targetValue = target[key];
-      const sourceValue = source[key];
+function deepMergeInner<T>(target: T, source: T) {
+  Object.keys(source).forEach((key: string) => {
+    const targetValue = target[key as keyof T];
+    const sourceValue = source[key as keyof T];
 
-      if (Array.isArray(targetValue) && Array.isArray(sourceValue)) {
-        target[key] = targetValue.concat(sourceValue);
-      } else if (isObject(targetValue) && isObject(sourceValue)) {
-        target[key] = deepMergeInner(
-          Object.assign({}, targetValue),
-          sourceValue
-        );
-      } else {
-        target[key] = sourceValue;
-      }
-    });
+    if (isObject(targetValue) && isObject(sourceValue)) {
+      target[key as keyof T] = deepMergeInner(
+        Object.assign({}, targetValue),
+        sourceValue
+      );
+    } else {
+      target[key as keyof T] = sourceValue;
+    }
+  });
 
-    return target;
-  };
+  return target;
+}
 
+function isObject<T>(obj: T) {
+  return obj && typeof obj === "object";
+}
+
+export function deepMerge<T>(...objects: T[]) {
   if (objects.length < 2) {
     throw new Error(
       "deepMerge: this function expects at least 2 objects to be provided"
@@ -31,9 +32,9 @@ export function deepMerge(...objects: any[]) {
   }
 
   const target = objects.shift();
-  let source: any;
+  let source: T;
 
-  while ((source = objects.shift())) {
+  while ((source = objects.shift() as T)) {
     deepMergeInner(target, source);
   }
 

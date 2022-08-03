@@ -1,4 +1,7 @@
 import { CssKeywordMethod } from "../typings/CssAggregate";
+import CssQueries from "../typings/CssQueries";
+import CssStyles from "../typings/CssStyles";
+import CssStyleSheet from "../typings/CssStyleSheet";
 import { getStyleElement } from "./manageHtmlElements";
 
 /**
@@ -7,13 +10,13 @@ import { getStyleElement } from "./manageHtmlElements";
  * @param cssObj contains css class objects
  */
 
-export function stringifyCssObject<T extends { [x: string]: T }>(
-  cssObj: T,
+export function stringifyCssObject(
+  cssObj: CssStyles,
   keyworkMethod: CssKeywordMethod
 ): void {
   Object.keys(cssObj).forEach((name) => {
     const css = `${keyworkMethod.keyword}${name}{${keyworkMethod.method(
-      cssObj[name]
+      cssObj[name] as { [x: string]: CssStyleSheet | CssQueries }
     )}}`;
     const i = getStyleElement("MinUiTScssId").innerHTML.indexOf(css);
     if (i < 0) {

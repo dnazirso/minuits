@@ -1,8 +1,13 @@
+import CssQueries from "./CssQueries";
+import CssStyleSheet from "./CssStyleSheet";
+
 export type CssKeyWord = "@keyframes " | "@media " | "." | "#" | "";
 
 export interface CssKeywordMethod {
   keyword: CssKeyWord;
-  method<T extends { [x: string]: any }>(cssObj: T): string;
+  method<T extends { [x: string]: CssStyleSheet | CssQueries }>(
+    cssObj: T
+  ): string;
 }
 
 interface CssAggregate {

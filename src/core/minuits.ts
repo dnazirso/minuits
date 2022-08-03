@@ -26,7 +26,7 @@ let _idx = 0;
  * Theme
  */
 export function SetTheme(theme: MinUiTheme) {
-  _theme = deepMerge(DefaultTheme, theme);
+  _theme = deepMerge<MinUiTheme>(DefaultTheme, theme)!;
   mapThemeCharCssVars(theme);
 }
 
