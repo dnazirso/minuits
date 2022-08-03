@@ -49,7 +49,7 @@ export function addCssVar(name: string, value: string) {
 
   cssVarsObj = { ...cssVarsObj, [name]: value };
   const cssVarsStr = stringifyCssVars();
-  getStyleElement("MinUiTScssVarsId").innerHTML = cssVarsStr;
+  getStyleElement("MinUiTScssId").innerHTML = cssVarsStr;
 }
 
 export function mapThemeCharCssVars(theme: MinUiTheme) {
