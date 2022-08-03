@@ -1,6 +1,6 @@
-import MinUi from "../core/MinUi";
+import minui from "../core/minuits";
 
-const Grid = MinUi.Use("class", (theme) => ({
+const Grid = minui.Use("class", (theme) => ({
   auto: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",

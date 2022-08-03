@@ -1,4 +1,4 @@
-import { SetTheme } from "../src/core/MinUi";
+import { SetTheme } from "../src/core/minuits";
 
 SetTheme({
   chart: {

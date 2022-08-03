@@ -1,4 +1,4 @@
-export { default as MinUi } from "./MinUi";
+export { default as minuits } from "./minuits";
 
-export * from "./MinUi";
+export * from "./minuits";
 // export * from "./Normalize";

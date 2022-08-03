@@ -1,6 +1,6 @@
-import MinUi from "../core/MinUi";
+import minui from "../core/minuits";
 
-const keyframes = MinUi.Use("keyframes", (theme) => ({
+const keyframes = minui.Use("keyframes", (theme) => ({
   hover: {
     "0%": {
       backgroundColor: theme.chart?.button?.main,
@@ -30,7 +30,7 @@ const keyframes = MinUi.Use("keyframes", (theme) => ({
   },
 }));
 
-const Button = MinUi.Use("class", (theme) => ({
+const Button = minui.Use("class", (theme) => ({
   contained: {
     color: theme.chart?.button?.textContrasts,
     backgroundColor: theme.chart?.button?.main,

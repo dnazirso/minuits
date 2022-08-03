@@ -1,6 +1,6 @@
-import { MinUi } from "../core";
+import { minuits } from "../core";
 
-const Checkbox = MinUi.Use("class", (theme) => ({
+const Checkbox = minuits.Use("class", (theme) => ({
   input: {
     padding: theme.spacing?.inputs,
     marginTop: "auto",

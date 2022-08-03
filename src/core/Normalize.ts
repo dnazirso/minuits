@@ -1,10 +1,10 @@
-import MinUi from "./MinUi";
+import minui from "./minuits";
 
 /**
  * Based on Normalize.css
  * v8.0.1 | MIT License | github.com/necolas/normalize.css
  */
-MinUi.Add("global", {
+minui.Add("global", {
   //--------------------------------MIN-UI--------------------------------------
   "*": {
     fontFamily: "Arial, Helvetica, sans-serif",

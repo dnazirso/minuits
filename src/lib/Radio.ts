@@ -1,6 +1,6 @@
-import { MinUi } from "../core";
+import { minuits } from "../core";
 
-const Radio = MinUi.Use("class", (theme) => ({
+const Radio = minuits.Use("class", (theme) => ({
   span: {
     display: "flex",
     flexDirection: "row",
