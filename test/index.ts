@@ -1,5 +1,5 @@
 import "./theme";
-import { Box, Button, Radio } from "../src/lib";
+import { Box, Button, Radio } from "./lib";
 
 function App() {
   const div = document.createElement("div");

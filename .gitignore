@@ -5,16 +5,13 @@
 /.pnp
 .pnp.js
 
-# testing
-/coverage
-
 # production
 /build
 /dist
 /core
-/lib
 /typings
 /target
+/src/lib
 **.exe
 **.ps1
 

@@ -1,4 +1,4 @@
-import { Use, Add } from "../core/minuits";
+import { Use, Add } from "../../src/core/minuits";
 
 const modalFrames = Add("keyframes", {
   blur: {
@@ -24,7 +24,7 @@ const Modal = Use("class", (theme) => ({
   },
   card: {
     position: "fixed",
-    display: "none",
+    display: "flex",
     flexDirection: "column",
     top: "33%",
     left: "50%",
@@ -49,8 +49,8 @@ const Modal = Use("class", (theme) => ({
     flexDirection: "column",
     justifyContent: "space-evenly",
   },
-  active: {
-    display: "flex",
+  inactive: {
+    display: "none",
   },
 }));
 

@@ -1,4 +1,4 @@
-import { Use } from "../core";
+import { Use } from "../../src/core";
 
 const Checkbox = Use("class", (theme) => ({
   input: {

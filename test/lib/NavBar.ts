@@ -1,4 +1,4 @@
-import { Use } from "../core/minuits";
+import { Use } from "../../src/core/minuits";
 
 const NavBar = Use("class", (theme) => ({
   navbar: {

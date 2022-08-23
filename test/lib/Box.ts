@@ -1,4 +1,4 @@
-import { Use, Add } from "../core/minuits";
+import { Use, Add } from "../../src/core/minuits";
 
 const Box = Use("class", (theme) => ({
   flex: {

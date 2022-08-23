@@ -1,4 +1,4 @@
-import { Use } from "../core";
+import { Use } from "../../src/core";
 
 const Radio = Use("class", (theme) => ({
   span: {
