@@ -1,4 +1,4 @@
-import MinUiTheme from "../typings/MinUiTheme";
+import MinUiTheme from "./MinUiTheme";
 
 export const mappedCssVars = {
   chart: {

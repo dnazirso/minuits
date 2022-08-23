@@ -5,7 +5,7 @@ import DefaultTheme, { mappedCssVars } from "./DefaultTheme";
 import CssAggregate from "../typings/CssAggregate";
 import CssQueries from "../typings/CssQueries";
 import CssStyleSheet from "../typings/CssStyleSheet";
-import MinUiTheme from "../typings/MinUiTheme";
+import MinUiTheme from "./MinUiTheme";
 import { queryToString } from "./queryToString";
 import { stylesToString } from "./stylesToString";
 import { deepMerge } from "./deepMerge";

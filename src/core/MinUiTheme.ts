@@ -1,3 +1,26 @@
+interface MinUiColors {
+  chart?: {
+    main?: string;
+    navbar?: string;
+    button?: {
+      main: string;
+      second?: string;
+      warning?: string;
+      disabled?: string;
+      textContrasts: string;
+    };
+    borders?: {
+      main?: string;
+      input?: string;
+      button?: string;
+    };
+    shades?: {
+      box?: string;
+      text?: string;
+    };
+  };
+}
+
 type TypoGraphySet = {
   fontFamily: string;
   fontWeight?: number | string;
@@ -37,4 +60,6 @@ interface MinUiSizes {
   };
 }
 
-export default MinUiSizes;
+interface MinUiTheme extends MinUiColors, MinUiSizes {}
+
+export default MinUiTheme;

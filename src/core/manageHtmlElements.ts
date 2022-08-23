@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import MinUiTheme from "../typings/MinUiTheme";
+import MinUiTheme from "./MinUiTheme";
 
 export function getStyleElement(name: string) {
   let style: HTMLStyleElement | null = document.head.querySelector(`#${name}`);
