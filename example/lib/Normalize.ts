@@ -1,4 +1,4 @@
-import { Add } from "./minuits";
+import { Add } from "../../src/core/minuits";
 
 /**
  * Based on Normalize.css
