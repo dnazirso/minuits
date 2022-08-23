@@ -16,5 +16,5 @@
     "noImplicitThis": true,
     "strictNullChecks": true
   },
-  "exclude": ["node_modules", "webpack", "test"]
+  "exclude": ["node_modules", "webpack", "example"]
 }

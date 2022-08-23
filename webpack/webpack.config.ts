@@ -3,7 +3,7 @@ import { Configuration } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
 export default {
-  entry: "./test/index.ts",
+  entry: "./example/index.ts",
   devtool: "inline-source-map",
   mode: "development",
   module: {
